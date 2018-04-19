@@ -1,0 +1,33 @@
+// Import material icons to be available through the app
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import './theme/variables';
+
+.app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  background: $color-secondary;
+  flex: 1 0 auto;
+}
+
+nav {
+  background: $color-secondary;
+}
+
+footer {
+  background: $color-secondary;
+}
+
+@media only screen and (max-width: 992px) {
+  nav {
+    position: fixed;
+    z-index: 9999;
+
+    .brand-logo {
+      font-size: 1.7rem;
+    }
+  }
+}
