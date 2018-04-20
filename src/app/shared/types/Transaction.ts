@@ -9,7 +9,7 @@ export interface Transaction {
 }
 
 export enum TransactionValidationError {
-  MissingProperty = 'Missing property.',
+  MissingProperties = 'Missing properties.',
   WrongEndBalance = 'Wrong end balance.',
   DuplicateId = 'Duplicate transaction id.',
 }

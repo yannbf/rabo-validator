@@ -4,6 +4,7 @@ import {
   Transaction,
   TransactionValidationError,
 } from '../../shared/types/Transaction';
+import { checkTransactionProperties } from '../../shared/util';
 
 @Component({
   selector: 'app-home',
@@ -33,12 +34,27 @@ export class HomeComponent {
     this.transactionRecords.map((t: Transaction) => {
       const validTransaction =
         Number(t.endBalance) === Number(t.startBalance) + Number(t.mutation);
+
       if (!validTransaction) {
-        t.validationErrors = [
-          ...(t.validationErrors || []),
-          TransactionValidationError.WrongEndBalance,
-        ];
+        t.validationErrors = this.addValidationError(
+          t,
+          TransactionValidationError.WrongEndBalance
+        );
+      }
+
+      if (!checkTransactionProperties(t)) {
+        t.validationErrors = this.addValidationError(
+          t,
+          TransactionValidationError.MissingProperties
+        );
       }
     });
+  }
+
+  private addValidationError(
+    transaction: Transaction,
+    error: TransactionValidationError
+  ) {
+    return [...(transaction.validationErrors || []), error];
   }
 }
