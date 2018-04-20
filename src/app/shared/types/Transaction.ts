@@ -4,6 +4,7 @@ export interface Transaction {
   endBalance: number;
   mutation: number;
   startBalance: number;
-  ($: Object): { reference: string };
+  $: { reference: string };
   isDuplicate?: boolean;
+  hasAllProperties?: boolean;
 }
