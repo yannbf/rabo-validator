@@ -5,11 +5,12 @@ import { Ng2FileInputModule } from 'ng2-file-input';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages';
+import { FormatConverterService } from './services/format-converter.service';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent],
   imports: [BrowserModule, HttpClientModule, Ng2FileInputModule.forRoot()],
-  providers: [],
+  providers: [FormatConverterService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
