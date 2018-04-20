@@ -5,6 +5,11 @@ export interface Transaction {
   mutation: number;
   startBalance: number;
   $: { reference: string };
-  isDuplicate?: boolean;
-  hasAllProperties?: boolean;
+  validationErrors?: Array<TransactionValidationError>;
+}
+
+export enum TransactionValidationError {
+  MissingProperty = 'Missing property.',
+  WrongEndBalance = 'Wrong end balance.',
+  DuplicateId = 'Duplicate transaction id.',
 }
