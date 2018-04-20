@@ -4,7 +4,7 @@ export interface Transaction {
   endBalance: number;
   mutation: number;
   startBalance: number;
-  $: { reference: string };
+  reference: string;
   validationErrors?: Array<TransactionValidationError>;
 }
 
