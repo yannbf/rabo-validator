@@ -1,0 +1,10 @@
+$color-item-invalid: #ff0000;
+$color-item-valid: #008000;
+
+.table-item {
+  color: $color-item-valid;
+}
+
+.table-item--invalid {
+  color: $color-item-invalid;
+}

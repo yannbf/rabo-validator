@@ -12,5 +12,8 @@
       <h4>Add file:</h4>
       <ng2-file-input accept=".csv, .xml" (onAdded)="onFileAdded($event)" [multiple]="false"></ng2-file-input>
     </div>
+    <div class="section">
+      <app-transactions-table [data]="transactionRecords"></app-transactions-table>
+    </div>
   </div>
 </div>

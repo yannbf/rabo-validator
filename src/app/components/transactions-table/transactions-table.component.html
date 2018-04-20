@@ -1,0 +1,27 @@
+<p *ngIf="!data.length">No records.</p>
+<table class="responsive-table striped centered z-depth-2" *ngIf="data.length">
+  <thead>
+    <tr>
+        <th *ngFor="let header of headers">{{header}}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of data">
+      <td>
+        <a class="tooltipped table-item" [ngClass]="{'table-item--invalid': item.validationErrors}" data-position="top" data-tooltip="I am a tooltip">
+          <i class="material-icons">{{item.validationErrors ? 'error_outline': 'check'}}</i>
+        </a>
+        <div *ngFor="let error of item.validationErrors">
+          {{error}}
+        </div>
+      </td>
+      <td>
+      {{item.reference}}</td>
+      <td>{{item.accountNumber}}</td>
+      <td>{{item.description}}</td>
+      <td>{{item.startBalance}}</td>
+      <td>{{item.mutation}}</td>
+      <td>{{item.endBalance}}</td>
+    </tr>
+  </tbody>
+</table>

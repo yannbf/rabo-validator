@@ -7,9 +7,10 @@ import { PapaParseModule } from 'ngx-papaparse';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages';
 import { FormatConverterService } from './services/format-converter.service';
+import { TransactionsTableComponent } from './components/transactions-table/transactions-table.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent],
+  declarations: [AppComponent, HomeComponent, TransactionsTableComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
