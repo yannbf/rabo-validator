@@ -23,10 +23,12 @@ export class HomeComponent {
   private readFile(file) {
     const fileReader = new FileReader();
     fileReader.onload = (e: FileReaderProgressEvent) => {
-      this.converter.convertToJson(fileReader.result).subscribe((a: any) => {
-        this.transactionRecords = a.records.record;
-        this.startValidations();
-      });
+      this.converter
+        .convertToJSON(file.name, fileReader.result)
+        .subscribe((res: any) => {
+          this.transactionRecords = res.records.record;
+          this.startValidations();
+        });
     };
     fileReader.readAsText(file);
   }
