@@ -1,15 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormatConverterService } from '../../services/format-converter.service';
+import { Transaction } from '../../shared/types/Transaction';
+import { checkTransactionType } from '../../shared/util/Util';
 
-export interface Transaction {
-  accountNumber: string;
-  description: string;
-  endBalance: number;
-  mutation: number;
-  startBalance: number;
-  $: { reference: string };
-  isDuplicate?: boolean;
-}
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
