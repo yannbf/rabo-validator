@@ -22,11 +22,11 @@ export class HomeComponent {
 
   private readFile(file) {
     const fileReader = new FileReader();
-    fileReader.onload = (e: FileReaderProgressEvent) => {
+    fileReader.onload = e => {
       this.converter
         .convertToJSON(file.name, fileReader.result)
         .subscribe((res: any) => {
-          this.transactionRecords = res.records.record;
+          this.transactionRecords = res;
           this.startValidations();
         });
     };
@@ -34,16 +34,18 @@ export class HomeComponent {
   }
 
   private startValidations() {
-    const transactionIds = this.transactionRecords.map(t => t.$.reference);
+    const transactionIds = this.transactionRecords.map(t => t.reference);
 
     this.transactionRecords.map((t: Transaction) => {
+      const endBalance = Number(t.startBalance) + Number(t.mutation);
       const validTransaction =
-        Number(t.endBalance) === Number(t.startBalance) + Number(t.mutation);
+        Number(t.endBalance).toFixed(2) === endBalance.toFixed(2);
 
       if (!validTransaction) {
         t.validationErrors = this.addValidationError(
           t,
-          TransactionValidationError.WrongEndBalance
+          `${TransactionValidationError.WrongEndBalance}
+          \nShould be: ${endBalance}`
         );
       }
 
@@ -54,7 +56,7 @@ export class HomeComponent {
         );
       }
 
-      if (hasDuplicates(transactionIds, t.$.reference)) {
+      if (hasDuplicates(transactionIds, t.reference)) {
         t.validationErrors = this.addValidationError(
           t,
           TransactionValidationError.DuplicateId
@@ -65,7 +67,7 @@ export class HomeComponent {
 
   private addValidationError(
     transaction: Transaction,
-    error: TransactionValidationError
+    error: TransactionValidationError | string
   ) {
     return [...(transaction.validationErrors || []), error];
   }

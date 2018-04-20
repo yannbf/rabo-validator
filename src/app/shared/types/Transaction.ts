@@ -5,7 +5,7 @@ export interface Transaction {
   mutation: number;
   startBalance: number;
   reference: string;
-  validationErrors?: Array<TransactionValidationError>;
+  validationErrors?: Array<TransactionValidationError | string>;
 }
 
 export enum TransactionValidationError {
