@@ -4399,6 +4399,12 @@ ng2-file-input@^1.1.0:
   dependencies:
     bergben-angular2-file-drop ">=0.2.0"
 
+ngx-papaparse@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/ngx-papaparse/-/ngx-papaparse-2.1.0.tgz#88d98e0072d81143d09bd4273f5e1e380bdc48c0"
+  dependencies:
+    papaparse "^4.3.6"
+
 no-case@^2.2.0:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/no-case/-/no-case-2.3.2.tgz#60b813396be39b3f1288a4c1ed5d1e7d28b464ac"
@@ -4771,6 +4777,10 @@ package-json@^4.0.0:
 pako@~1.0.5:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/pako/-/pako-1.0.6.tgz#0101211baa70c4bca4a0f63f2206e97b7dfaf258"
+
+papaparse@^4.3.6:
+  version "4.3.7"
+  resolved "https://registry.yarnpkg.com/papaparse/-/papaparse-4.3.7.tgz#ed1e7183320d1e0839dfe9f7186185cfc5097b8d"
 
 parallel-transform@^1.1.0:
   version "1.1.0"
