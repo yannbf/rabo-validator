@@ -16,7 +16,7 @@ export class FormatConverterService {
 
     const isCSV = fileName.endsWith('.csv');
     if (isCSV) {
-      return this.convertCSVToJson(data);
+      return this.convertCSVToJson(this.processData(data));
     }
 
     if (!isXML && !isCSV) {
@@ -26,25 +26,38 @@ export class FormatConverterService {
 
   private convertXMLToJson(data: string): Observable<Object> {
     return Observable.create(observer => {
-      parseString(data, { explicitArray: false }, (error, result) => {
-        if (error) {
-          observer.error(error);
-        }
+      parseString(
+        data,
+        { explicitArray: false, mergeAttrs: true },
+        (error, result: any) => {
+          if (result === null) {
+            return observer.error('The file is empty.');
+          }
 
-        observer.next(result);
-        observer.complete();
-      });
+          if (error) {
+            return observer.error(error);
+          }
+
+          const res = (result.records && result.records.record) || [];
+          observer.next(res);
+          observer.complete();
+        }
+      );
     });
   }
 
   private convertCSVToJson(data: string): Observable<Object> {
     return Observable.create(observer => {
-      this.csvConverter.parse(this.processData(data), {
+      this.csvConverter.parse(data, {
         header: true,
         dynamicTyping: true,
+        skipEmptyLines: true,
         complete: results => {
-          console.log('Parsed: ', results);
-          observer.next(results);
+          if (results === null) {
+            return observer.error('The file is empty.');
+          }
+
+          observer.next(results.data);
           observer.complete();
         },
         error: error => {
