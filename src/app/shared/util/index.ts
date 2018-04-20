@@ -7,3 +7,6 @@ export const checkTransactionProperties = (obj: any): boolean =>
   obj.hasOwnProperty('mutation') &&
   obj.hasOwnProperty('startBalance') &&
   (obj.hasOwnProperty('$') && obj.$.hasOwnProperty('reference'));
+
+export const hasDuplicates = (array: Array<any>, value: any) =>
+  array.filter(v => v === value).length > 1;

@@ -4,7 +4,7 @@ import {
   Transaction,
   TransactionValidationError,
 } from '../../shared/types/Transaction';
-import { checkTransactionProperties } from '../../shared/util';
+import { checkTransactionProperties, hasDuplicates } from '../../shared/util';
 
 @Component({
   selector: 'app-home',
@@ -13,6 +13,7 @@ import { checkTransactionProperties } from '../../shared/util';
 })
 export class HomeComponent {
   transactionRecords: Array<Transaction> = [];
+
   constructor(private converter: FormatConverterService) {}
 
   public onFileAdded(event: any) {
@@ -31,6 +32,8 @@ export class HomeComponent {
   }
 
   private startValidations() {
+    const transactionIds = this.transactionRecords.map(t => t.$.reference);
+
     this.transactionRecords.map((t: Transaction) => {
       const validTransaction =
         Number(t.endBalance) === Number(t.startBalance) + Number(t.mutation);
@@ -46,6 +49,13 @@ export class HomeComponent {
         t.validationErrors = this.addValidationError(
           t,
           TransactionValidationError.MissingProperties
+        );
+      }
+
+      if (hasDuplicates(transactionIds, t.$.reference)) {
+        t.validationErrors = this.addValidationError(
+          t,
+          TransactionValidationError.DuplicateId
         );
       }
     });
