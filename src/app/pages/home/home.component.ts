@@ -1,26 +1,35 @@
 import { Component, OnInit } from '@angular/core';
-import { Ng2FileInputService, Ng2FileInputAction } from 'ng2-file-input';
+import { FormatConverterService } from '../../services/format-converter.service';
 
+export interface Transaction {
+  accountNumber: string;
+  description: string;
+  endBalance: number;
+  mutation: number;
+  startBalance: number;
+  $: { reference: string };
+  isDuplicate?: boolean;
+}
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
-  constructor() {}
+  transactionRecords: Array<Transaction> = [];
+  constructor(private converter: FormatConverterService) {}
 
-  public onAction(event: any) {
-    console.log(event);
-    console.log(this.getFileNames(event.currentFiles));
+  public onFileAdded(event: any) {
+    this.readFile(event.file);
   }
 
-  public onAdded(event: any) {
-    console.log('FileInput: ' + event.id);
-    console.log('Action: File added');
-  }
-
-  private getFileNames(files: File[]): string {
-    const names = files.map(file => file.name);
-    return names ? names.join(', ') : 'No files currently added.';
+  public readFile(file) {
+    const fileReader = new FileReader();
+    fileReader.onload = (e: FileReaderProgressEvent) => {
+      this.converter.convertToJson(fileReader.result).subscribe((a: any) => {
+        this.transactionRecords = a.records.record;
+      });
+    };
+    fileReader.readAsText(file);
   }
 }
