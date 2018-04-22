@@ -18,6 +18,16 @@
   }
 }
 
+@media screen and (max-width: 600px) {
+  .brand-logo {
+    font-size: 1.4rem;
+
+    img {
+      display: none;
+    }
+  }
+}
+
 main {
   background: $color-secondary;
   flex: 1 0 auto;
