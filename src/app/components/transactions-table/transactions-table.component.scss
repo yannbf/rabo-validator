@@ -1,5 +1,10 @@
-$color-item-invalid: #ff0000;
-$color-item-valid: #008000;
+$color-primary: #fd6400;
+$color-item-invalid: #ff3535;
+$color-item-valid: #1c991c;
+$color-light-grey: #ddd;
+$color-lighter-grey: #ccc;
+$color-light-black: #333;
+$color-transparent-gray: rgba(230, 230, 230, 0.1);
 
 .table-item {
   color: $color-item-valid;
@@ -8,3 +13,90 @@ $color-item-valid: #008000;
 .table-item--invalid {
   color: $color-item-invalid;
 }
+
+table {
+  border: 1px solid $color-lighter-grey;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin: 5px;
+  padding: 0;
+  width: 100%;
+
+  tr {
+    border: 1px solid $color-light-grey;
+    padding: 5px;
+  }
+
+  th,
+  td {
+    padding: 10px;
+    text-align: left;
+  }
+
+  th {
+    // text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .z-depth-2 {
+    box-shadow: none;
+  }
+
+  table {
+    border: 0;
+
+    thead {
+      display: none;
+    }
+
+    tr {
+      background: $color-transparent-gray;
+      border-radius: 10px;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    td {
+      border-bottom: 1px dotted $color-lighter-grey;
+      display: block;
+      font-size: 13px;
+      text-align: right;
+    }
+
+    td:last-child {
+      border-bottom: 0;
+    }
+
+    td::before {
+      color: $color-light-black;
+      content: attr(data-label);
+      float: left;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+  }
+}
+
+// sass-lint:disable-all
+#{'/deep/'} .pagination > .active > a {
+  background-color: $color-primary;
+}
+#{'/deep/'} a.text-nowrap {
+  color: $color-primary;
+}
+#{'/deep/'} button.btn.btn-primary {
+  background-color: $color-primary;
+}
+#{'/deep/'} span.ng2-file-input-file-text.remove::before {
+  color: $color-light-grey;
+  content: 'x';
+  height: 1rem;
+  left: 0;
+  margin-right: 1rem;
+  position: absolute;
+  width: 1rem;
+}
+// sass-lint:enable-all

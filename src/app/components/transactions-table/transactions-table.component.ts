@@ -9,12 +9,33 @@ import { Transaction } from '../../shared/types/Transaction';
 export class TransactionsTableComponent {
   @Input() data: Array<Transaction>;
   headers = [
-    'Valid',
-    'Reference nr.',
-    'Account nr.',
-    'Description',
-    'Start balance',
-    'Mutation',
-    'End balance',
+    {
+      field: 'validationErrors',
+      label: 'Valid',
+    },
+    {
+      field: 'reference',
+      label: 'Ref nr.',
+    },
+    {
+      field: 'accountNumber',
+      label: 'Account nr.',
+    },
+    {
+      field: 'description',
+      label: 'Description',
+    },
+    {
+      field: 'startBalance',
+      label: 'Start balance',
+    },
+    {
+      field: 'mutation',
+      label: 'Mutation',
+    },
+    {
+      field: 'endBalance',
+      label: 'End balance',
+    },
   ];
 }

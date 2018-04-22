@@ -1,27 +1,34 @@
-<p *ngIf="!data.length">No records.</p>
-<table class="responsive-table striped centered z-depth-2" *ngIf="data.length">
+<table class="table striped centered z-depth-2" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="5" *ngIf="data.length">
   <thead>
     <tr>
-        <th *ngFor="let header of headers">{{header}}</th>
+      <th *ngFor="let header of headers">
+        <mfDefaultSorter [by]="header.field">{{header.label}}</mfDefaultSorter>
+      </th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let item of data">
-      <td>
+    <tr *ngFor="let item of mf.data">
+      <td data-label="Valid">
         <a class="tooltipped table-item" [ngClass]="{'table-item--invalid': item.validationErrors}" data-position="top" data-tooltip="I am a tooltip">
           <i class="material-icons">{{item.validationErrors ? 'error_outline': 'check'}}</i>
         </a>
-        <div *ngFor="let error of item.validationErrors">
+        <!-- <div *ngFor="let error of item.validationErrors">
           {{error}}
-        </div>
+        </div> -->
       </td>
-      <td>
-      {{item.reference}}</td>
-      <td>{{item.accountNumber}}</td>
-      <td>{{item.description}}</td>
-      <td>{{item.startBalance}}</td>
-      <td>{{item.mutation}}</td>
-      <td>{{item.endBalance}}</td>
+      <td data-label="Reference nr.">{{item.reference}}</td>
+      <td data-label="Account nr.">{{item.accountNumber}}</td>
+      <td data-label="Description">{{item.description}}</td>
+      <td data-label="Start balance">{{item.startBalance}}</td>
+      <td data-label="Mutation" [ngStyle]="{'color': item.mutation > 0 ? '#008000' : '#ff0000'}">{{item.mutation}}</td>
+      <td data-label="End balance">{{item.endBalance}}</td>
     </tr>
   </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="4">
+        <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+      </td>
+    </tr>
+  </tfoot>
 </table>
