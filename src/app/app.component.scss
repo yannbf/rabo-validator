@@ -8,6 +8,16 @@
   min-height: 100vh;
 }
 
+.brand-logo {
+  align-items: center;
+  display: flex;
+
+  img {
+    margin-right: 0.625rem;
+    width: 40px;
+  }
+}
+
 main {
   background: $color-secondary;
   flex: 1 0 auto;
@@ -19,15 +29,4 @@ nav {
 
 footer {
   background: $color-secondary;
-}
-
-@media only screen and (max-width: 992px) {
-  nav {
-    position: fixed;
-    z-index: 9999;
-
-    .brand-logo {
-      font-size: 1.7rem;
-    }
-  }
 }
