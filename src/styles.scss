@@ -1,9 +1,9 @@
 @import '~ng2-file-input/ng2-file-input.css';
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
 
-@import 'https://fonts.googleapis.com/icon?family=Material+Icons';
-
-/* You can add global styles to this file, and also import other style files */
+// You can add global styles to this file, and also import other style files
 * {
   -webkit-font-smoothing: subpixel-antialiased;
+  font-family: 'Source Sans Pro', sans-serif;
   text-rendering: optimizeLegibility;
 }
