@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormatConverterService } from '../../services/format-converter.service';
 import {
   Transaction,
   TransactionValidationError,
 } from '../../shared/types/Transaction';
 import { checkTransactionProperties, hasDuplicates } from '../../shared/util';
+import { ToastrService } from 'ngx-toastr';
+import { Ng2FileInputService } from 'ng2-file-input';
 
 @Component({
   selector: 'app-home',
@@ -12,25 +14,38 @@ import { checkTransactionProperties, hasDuplicates } from '../../shared/util';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
-  transactionRecords: Array<Transaction> = [];
+  transactionRecords: Array<Transaction>;
+  fileInputIdentifier = 'file-input-id';
 
-  constructor(private converter: FormatConverterService) {}
+  constructor(
+    private converter: FormatConverterService,
+    private toastr: ToastrService,
+    private fileInputService: Ng2FileInputService
+  ) {}
 
   public onFileAdded(event: any) {
     this.readFile(event.file);
   }
 
+  public onFileRemoved(event: any) {
+    this.transactionRecords = null;
+  }
+
   private readFile(file) {
     const fileReader = new FileReader();
     fileReader.onload = e => {
-      this.converter
-        .convertToJSON(file.name, fileReader.result)
-        .subscribe((res: any) => {
+      this.converter.convertToJSON(file.name, fileReader.result).subscribe(
+        (res: any) => {
           this.transactionRecords = res;
           this.startValidations();
-        });
+        },
+        error => {
+          this.displayErrorToast(error);
+          this.fileInputService.reset(this.fileInputIdentifier);
+        }
+      );
     };
-    fileReader.readAsText(file);
+    fileReader.readAsText(file, 'UTF-8');
   }
 
   private startValidations() {
@@ -70,5 +85,13 @@ export class HomeComponent {
     error: TransactionValidationError | string
   ) {
     return [...(transaction.validationErrors || []), error];
+  }
+
+  private displayErrorToast(error: string) {
+    this.toastr.error(error, 'Error:', {
+      timeOut: 4000,
+      progressBar: true,
+      progressAnimation: 'decreasing',
+    });
   }
 }
