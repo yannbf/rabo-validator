@@ -20,7 +20,9 @@ export class FormatConverterService {
     }
 
     if (!isXML && !isCSV) {
-      throw new Error('The file has a wrong extension.');
+      return Observable.create(obs =>
+        obs.error('The file has a wrong extension.')
+      );
     }
   }
 
@@ -52,6 +54,7 @@ export class FormatConverterService {
         header: true,
         dynamicTyping: true,
         skipEmptyLines: true,
+        encoding: 'UTF-8',
         complete: results => {
           if (results === null) {
             return observer.error('The file is empty.');
