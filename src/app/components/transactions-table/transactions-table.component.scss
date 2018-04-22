@@ -12,6 +12,10 @@ $color-transparent-gray: rgba(230, 230, 230, 0.1);
 
 .table-item--invalid {
   color: $color-item-invalid;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 table {

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Transaction } from '../../shared/types/Transaction';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-transactions-table',
@@ -38,4 +39,16 @@ export class TransactionsTableComponent {
       label: 'End balance',
     },
   ];
+
+  constructor(private toastr: ToastrService) {}
+
+  displayToast(errors) {
+    if (errors) {
+      this.toastr.error(errors, null, {
+        timeOut: 4000,
+        progressBar: true,
+        progressAnimation: 'decreasing',
+      });
+    }
+  }
 }

@@ -1,4 +1,4 @@
-<table class="table striped centered z-depth-2" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="5" *ngIf="data.length">
+<table class="table striped centered z-depth-2" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="5" *ngIf="data">
   <thead>
     <tr>
       <th *ngFor="let header of headers">
@@ -9,12 +9,12 @@
   <tbody>
     <tr *ngFor="let item of mf.data">
       <td data-label="Valid">
-        <a class="tooltipped table-item" [ngClass]="{'table-item--invalid': item.validationErrors}" data-position="top" data-tooltip="I am a tooltip">
+        <a
+          class="tooltipped table-item"
+          [ngClass]="{'table-item--invalid': item.validationErrors}"
+          (click)="displayToast(item.validationErrors)">
           <i class="material-icons">{{item.validationErrors ? 'error_outline': 'check'}}</i>
         </a>
-        <!-- <div *ngFor="let error of item.validationErrors">
-          {{error}}
-        </div> -->
       </td>
       <td data-label="Reference nr.">{{item.reference}}</td>
       <td data-label="Account nr.">{{item.accountNumber}}</td>
