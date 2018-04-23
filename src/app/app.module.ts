@@ -17,7 +17,9 @@ import { TransactionsTableComponent } from './components/transactions-table/tran
   imports: [
     BrowserModule,
     HttpClientModule,
-    Ng2FileInputModule.forRoot(),
+    Ng2FileInputModule.forRoot({
+      dropText: 'Drop file here (.xml or .csv only)',
+    }),
     PapaParseModule,
     DataTableModule,
     BrowserAnimationsModule,
