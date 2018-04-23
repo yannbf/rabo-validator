@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { DataTableModule } from 'angular2-datatable';
 
 import { TransactionsTableComponent } from './transactions-table.component';
+import { ToastrService, ToastrModule } from 'ngx-toastr';
 
 describe('TransactionsTableComponent', () => {
   let component: TransactionsTableComponent;
@@ -8,6 +10,7 @@ describe('TransactionsTableComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [DataTableModule, ToastrModule.forRoot()],
       declarations: [TransactionsTableComponent],
     }).compileComponents();
   }));
