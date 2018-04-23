@@ -88,7 +88,7 @@ export class HomeComponent {
   }
 
   private displayErrorToast(error: string) {
-    this.toastr.error(error, 'Error:', {
+    this.toastr.error(error, null, {
       timeOut: 4000,
       progressBar: true,
       progressAnimation: 'decreasing',

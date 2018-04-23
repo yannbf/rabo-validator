@@ -85,22 +85,27 @@ table {
 }
 
 // sass-lint:disable-all
-#{'/deep/'} .pagination > .active > a {
-  background-color: $color-primary;
-}
-#{'/deep/'} a.text-nowrap {
-  color: $color-primary;
-}
-#{'/deep/'} button.btn.btn-primary {
-  background-color: $color-primary;
-}
-#{'/deep/'} span.ng2-file-input-file-text.remove::before {
-  color: $color-light-grey;
-  content: 'x';
-  height: 1rem;
-  left: 0;
-  margin-right: 1rem;
-  position: absolute;
-  width: 1rem;
+#{'/deep/'} {
+  .pagination > .active > a {
+    background-color: $color-primary;
+  }
+
+  a.text-nowrap {
+    color: $color-primary;
+  }
+
+  button.btn.btn-primary {
+    background-color: $color-primary;
+  }
+
+  span.ng2-file-input-file-text.remove::before {
+    color: $color-light-grey;
+    content: 'x';
+    height: 1rem;
+    left: 0;
+    margin-right: 1rem;
+    position: absolute;
+    width: 1rem;
+  }
 }
 // sass-lint:enable-all
