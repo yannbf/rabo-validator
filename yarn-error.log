@@ -1,5 +1,5 @@
 Arguments: 
-  /Users/yannbraga/.nvm/versions/node/v8.9.4/bin/node /usr/local/Cellar/yarn/1.5.1/libexec/bin/yarn.js prepush
+  /Users/yannbraga/.nvm/versions/node/v8.9.4/bin/node /usr/local/Cellar/yarn/1.5.1/libexec/bin/yarn.js e2e:watch
 
 PATH: 
   /Users/yannbraga/.nvm/versions/node/v8.9.4/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/yannbraga/.yadr/bin:/Users/yannbraga/.yadr/bin/yadr
@@ -26,6 +26,7 @@ npm manifest:
       "lint": "ng lint",
       "sasslint": "sass-lint -c .sass-lint.yml '**/*.scss' -v -q",
       "e2e": "ng e2e",
+      "e2e:watch": "watch 'ng serve --environment=e2e & ng e2e -s false' src e2e --wait=1",
       "precommit": "lint-staged",
       "prepush": "ng test --browsers='ChromeHeadless' --watch=false",
       "precache": "sw-precache --verbose --config=sw-precache-config.js",
@@ -33,7 +34,7 @@ npm manifest:
     },
     "private": true,
     "dependencies": {
-      "@angular/animations": "^5.0.0",
+      "@angular/animations": "^5.2.10",
       "@angular/common": "^5.0.0",
       "@angular/compiler": "^5.0.0",
       "@angular/core": "^5.0.0",
@@ -42,10 +43,15 @@ npm manifest:
       "@angular/platform-browser": "^5.0.0",
       "@angular/platform-browser-dynamic": "^5.0.0",
       "@angular/router": "^5.0.0",
+      "angular2-datatable": "^0.6.0",
       "core-js": "^2.4.1",
       "jquery": "^3.2.1",
       "materialize-css": "^0.100.2",
+      "ng2-file-input": "^1.1.0",
+      "ngx-papaparse": "^2.1.0",
+      "ngx-toastr": "^8.4.0",
       "rxjs": "^5.5.2",
+      "xml2js": "^0.4.19",
       "zone.js": "^0.8.14"
     },
     "devDependencies": {
@@ -55,6 +61,7 @@ npm manifest:
       "@types/jasmine": "~2.5.53",
       "@types/jasminewd2": "~2.0.2",
       "@types/node": "~6.0.60",
+      "@types/xml2js": "^0.4.2",
       "angular2-template-loader": "^0.6.2",
       "codelyzer": "~3.2.0",
       "husky": "^0.14.3",
@@ -110,7 +117,7 @@ Lockfile:
       "@ngtools/json-schema" "^1.1.0"
       rxjs "^5.5.6"
   
-  "@angular/animations@^5.0.0":
+  "@angular/animations@^5.2.10":
     version "5.2.10"
     resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-5.2.10.tgz#61718792e0922ac622fd7c6dfb0afbb996638692"
     dependencies:
@@ -291,6 +298,10 @@ Lockfile:
     dependencies:
       "@types/jasmine" "*"
   
+  "@types/node@*":
+    version "9.6.6"
+    resolved "https://registry.yarnpkg.com/@types/node/-/node-9.6.6.tgz#439b91f9caf3983cad2eef1e11f6bedcbf9431d2"
+  
   "@types/node@^6.0.46", "@types/node@~6.0.60":
     version "6.0.106"
     resolved "https://registry.yarnpkg.com/@types/node/-/node-6.0.106.tgz#391bc3598ab5823563f7155847212152893edcd7"
@@ -302,6 +313,12 @@ Lockfile:
   "@types/selenium-webdriver@^2.53.35", "@types/selenium-webdriver@~2.53.39":
     version "2.53.43"
     resolved "https://registry.yarnpkg.com/@types/selenium-webdriver/-/selenium-webdriver-2.53.43.tgz#2de3d718819bc20165754c4a59afb7e9833f6707"
+  
+  "@types/xml2js@^0.4.2":
+    version "0.4.2"
+    resolved "https://registry.yarnpkg.com/@types/xml2js/-/xml2js-0.4.2.tgz#a4b84b3879ffd4710953fd92cabfde9a8a4e8456"
+    dependencies:
+      "@types/node" "*"
   
   abbrev@1:
     version "1.1.1"
@@ -408,6 +425,12 @@ Lockfile:
   amdefine@>=0.0.4:
     version "1.0.1"
     resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
+  
+  angular2-datatable@^0.6.0:
+    version "0.6.0"
+    resolved "https://registry.yarnpkg.com/angular2-datatable/-/angular2-datatable-0.6.0.tgz#ca008f74087f0cb87da5709ed2f2d1d061772632"
+    dependencies:
+      lodash "^4.0.0"
   
   angular2-template-loader@^0.6.2:
     version "0.6.2"
@@ -754,6 +777,12 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/bcrypt-pbkdf/-/bcrypt-pbkdf-1.0.1.tgz#63bc5dcb61331b92bc05fd528953c33462a06f8d"
     dependencies:
       tweetnacl "^0.14.3"
+  
+  bergben-angular2-file-drop@>=0.2.0:
+    version "0.2.0"
+    resolved "https://registry.yarnpkg.com/bergben-angular2-file-drop/-/bergben-angular2-file-drop-0.2.0.tgz#bc6200789f90afedb592ad9689b4d61dcda68c36"
+    dependencies:
+      fileapi "^2.0.20"
   
   better-assert@~1.0.0:
     version "1.0.2"
@@ -2430,6 +2459,10 @@ Lockfile:
     dependencies:
       loader-utils "^1.0.2"
       schema-utils "^0.4.5"
+  
+  fileapi@^2.0.20:
+    version "2.0.25"
+    resolved "https://registry.yarnpkg.com/fileapi/-/fileapi-2.0.25.tgz#6a7d27279b8c0cb9d3c526c6c0573a42a7c16402"
   
   filename-regex@^2.0.0:
     version "2.0.1"
@@ -4456,6 +4489,24 @@ Lockfile:
     version "1.0.0"
     resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
   
+  ng2-file-input@^1.1.0:
+    version "1.1.0"
+    resolved "https://registry.yarnpkg.com/ng2-file-input/-/ng2-file-input-1.1.0.tgz#152374dfed6aa515e6c9a8542f3a0dac674b306c"
+    dependencies:
+      bergben-angular2-file-drop ">=0.2.0"
+  
+  ngx-papaparse@^2.1.0:
+    version "2.1.0"
+    resolved "https://registry.yarnpkg.com/ngx-papaparse/-/ngx-papaparse-2.1.0.tgz#88d98e0072d81143d09bd4273f5e1e380bdc48c0"
+    dependencies:
+      papaparse "^4.3.6"
+  
+  ngx-toastr@^8.4.0:
+    version "8.4.0"
+    resolved "https://registry.yarnpkg.com/ngx-toastr/-/ngx-toastr-8.4.0.tgz#0fd73b66ab9857cb9eb9974ab259070cb4c458c5"
+    dependencies:
+      tslib "^1.7.1"
+  
   no-case@^2.2.0:
     version "2.3.2"
     resolved "https://registry.yarnpkg.com/no-case/-/no-case-2.3.2.tgz#60b813396be39b3f1288a4c1ed5d1e7d28b464ac"
@@ -4828,6 +4879,10 @@ Lockfile:
   pako@~1.0.5:
     version "1.0.6"
     resolved "https://registry.yarnpkg.com/pako/-/pako-1.0.6.tgz#0101211baa70c4bca4a0f63f2206e97b7dfaf258"
+  
+  papaparse@^4.3.6:
+    version "4.3.7"
+    resolved "https://registry.yarnpkg.com/papaparse/-/papaparse-4.3.7.tgz#ed1e7183320d1e0839dfe9f7186185cfc5097b8d"
   
   parallel-transform@^1.1.0:
     version "1.1.0"
@@ -7160,7 +7215,7 @@ Lockfile:
       sax "0.6.x"
       xmlbuilder ">=1.0.0"
   
-  xml2js@^0.4.17:
+  xml2js@^0.4.17, xml2js@^0.4.19:
     version "0.4.19"
     resolved "https://registry.yarnpkg.com/xml2js/-/xml2js-0.4.19.tgz#686c20f213209e94abf0d1bcf1efaa291c7827a7"
     dependencies:
@@ -7292,9 +7347,9 @@ Lockfile:
 
 Trace: 
   Error: Command failed.
-  Exit code: 1
+  Exit code: 127
   Command: sh
-  Arguments: -c ng test --browsers='ChromeHeadless' --watch=false
+  Arguments: -c watch 'ng serve --environment=e2e & ng e2e -s false' src e2e --wait=1
   Directory: /Users/yannbraga/Dev/angular-workspace/rabobank-challenge
   Output:
   
