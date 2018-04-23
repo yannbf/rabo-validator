@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Builder, parseString } from 'xml2js';
 import { Observable } from 'rxjs/Observable';
 import { PapaParseService } from 'ngx-papaparse';
-import { camelize } from '../shared/util';
+import { camelize, validateXML } from '../shared/util';
 
 @Injectable()
 export class FormatConverterService {
@@ -28,28 +28,36 @@ export class FormatConverterService {
 
   private convertXMLToJson(data: string): Observable<Object> {
     return Observable.create(observer => {
-      parseString(
-        data,
-        { explicitArray: false, mergeAttrs: true },
-        (error, result: any) => {
-          if (result === null) {
-            return observer.error('The file is empty.');
-          }
+      if (validateXML(data)) {
+        parseString(
+          data,
+          { explicitArray: false, mergeAttrs: true },
+          (error, result: any) => {
+            if (result === null) {
+              return observer.error('The file is empty.');
+            }
 
-          if (error) {
-            return observer.error(error);
-          }
+            if (error) {
+              return observer.error(error);
+            }
 
-          const res = (result.records && result.records.record) || [];
-          observer.next(res);
-          observer.complete();
-        }
-      );
+            const res = (result.records && result.records.record) || [];
+            observer.next(res);
+            observer.complete();
+          }
+        );
+      } else {
+        return observer.error('The XML file is invalid.');
+      }
     });
   }
 
   private convertCSVToJson(data: string): Observable<Object> {
     return Observable.create(observer => {
+      if (!data) {
+        return observer.error('The file is empty.');
+      }
+
       this.csvConverter.parse(data, {
         header: true,
         dynamicTyping: true,
@@ -71,10 +79,14 @@ export class FormatConverterService {
   }
 
   private processData(data) {
-    const allTextLines = data.split(/\r\n|\n/);
-    const headers = allTextLines.shift().split(',') as Array<string>;
-    const camelizedHeaders = headers.map(str => camelize(str)).join(',');
+    if (typeof data === 'string') {
+      const allTextLines = data.split(/\r\n|\n/);
+      const headers = allTextLines.shift().split(',') as Array<string>;
+      const camelizedHeaders = headers.map(str => camelize(str)).join(',');
 
-    return [camelizedHeaders, ...allTextLines].join('\n');
+      return [camelizedHeaders, ...allTextLines].join('\n');
+    }
+
+    return '';
   }
 }
