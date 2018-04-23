@@ -11,6 +11,7 @@
     "sasslint": "sass-lint -c .sass-lint.yml '**/*.scss' -v -q",
     "e2e": "ng e2e",
     "precommit": "lint-staged",
+    "prepush": "ng test --browsers='ChromeHeadless' --watch=false",
     "precache": "sw-precache --verbose --config=sw-precache-config.js",
     "deploy": "npm run build --prod"
   },
